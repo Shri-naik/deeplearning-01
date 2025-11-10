@@ -1,0 +1,31 @@
+# Python cache and artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+venv/
+venv_tf/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Large data and generated assets
+data/
+data_processed/
+static/uploads/
+experiments/
+deeplearning-01/
+
+# Model weights and checkpoints
+*.h5
+*.ckpt
+*.pb
+
+# Jupyter checkpoints
+notebooks/.ipynb_checkpoints/
+
+# Temporary files
+temp_img.jpg
