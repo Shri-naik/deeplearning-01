@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoSense - Analysis Results</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='eco-styles.css') }}">
+    <link rel="stylesheet" href="/static/eco-styles.css">
     <style>
         body {
             background: linear-gradient(135deg, var(--color-forest-green-light), var(--color-ocean-blue));
@@ -283,19 +283,19 @@
         </div>
         
         <div class="navigation">
-            <a href="{{ url_for('predict', type='water') }}" class="nav-link">
+            <a href="/templates/predict.html?type=water" class="nav-link">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
                 </svg>
                 Try Again
             </a>
-            <a href="{{ url_for('select') }}" class="nav-link">
+            <a href="/templates/select.html" class="nav-link">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                 </svg>
                 Back to Selection
             </a>
-            <a href="{{ url_for('landing') }}" class="nav-link">
+            <a href="/templates/landing.html" class="nav-link">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
                 </svg>
@@ -304,7 +304,7 @@
         </div>
     </div>
     
-    <script src="{{ url_for('static', filename='eco-animations.js') }}"></script>
+    <script src="/static/eco-animations.js"></script>
     <script>
         // Animate probability bars on page load
         document.addEventListener('DOMContentLoaded', function() {

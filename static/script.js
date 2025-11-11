@@ -28,15 +28,18 @@ document.getElementById("predictBtn").addEventListener("click", async function (
   formData.append("dataset", dataset);
 
   try {
-    const response = await fetch("/predict", {  // 👈 changed to relative URL
+    const response = await fetch(`/api/predict?type=${encodeURIComponent(dataset)}`, {
       method: "POST",
       body: formData
     });
-
     const data = await response.json();
+    if (data.error) {
+      document.getElementById("output").innerText = `Error: ${data.error}`;
+      return;
+    }
     document.getElementById("output").innerText = 
       data.prediction 
-        ? `Prediction: ${data.prediction}` 
+        ? `Prediction: ${data.prediction} (Confidence: ${(data.confidence * 100).toFixed(2)}%)`
         : `Prediction: ${data.class} (Confidence: ${(data.confidence * 100).toFixed(2)}%)`;
   } catch (err) {
     console.error(err);

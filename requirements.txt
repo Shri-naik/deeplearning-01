@@ -16,3 +16,4 @@ Flask>=2.0
 
 # Optional but useful
 Pillow
+requests

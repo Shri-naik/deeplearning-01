@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoSense - Environmental Awareness</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='eco-styles.css') }}">
+  <link rel="stylesheet" href="/static/eco-styles.css">
   <style>
     .hero {
       background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1920&q=80');
@@ -84,7 +84,7 @@
     <div class="hero-content fade-in">
       <h1 class="eco-logo">EcoSense</h1>
       <p class="eco-tagline">Empowering environmental awareness through advanced pollution detection and sustainable solutions</p>
-      <a href="{{ url_for('select') }}" class="btn btn-lg btn-primary">Start Exploring</a>
+      <a href="/templates/select.html" class="btn btn-lg btn-primary">Start Exploring</a>
       <p class="eco-quote">"The Earth does not belong to us: we belong to the Earth."</p>
     </div>
     <div class="scroll-indicator">
@@ -132,10 +132,10 @@
     <div class="container">
       <h2 class="mb-4 slide-up">Ready to make a difference?</h2>
       <p class="mb-5 slide-up">Use our pollution detection tools to understand your environment better.</p>
-      <a href="{{ url_for('select') }}" class="btn btn-lg btn-accent slide-up">Get Started</a>
+      <a href="/templates/select.html" class="btn btn-lg btn-accent slide-up">Get Started</a>
     </div>
   </section>
 
-  <script src="{{ url_for('static', filename='eco-animations.js') }}"></script>
+  <script src="/static/eco-animations.js"></script>
 </body>
 </html>

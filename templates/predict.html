@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoSense - Predict Pollution</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='eco-styles.css') }}">
+  <link rel="stylesheet" href="/static/eco-styles.css">
   <style>
     body {
       background: linear-gradient(135deg, var(--color-ocean-blue), var(--color-sky-blue));
@@ -220,19 +220,23 @@
         <div class="loading-spinner"></div>
         <p>Analyzing image...</p>
       </div>
+
+      <div id="resultOutput" style="display:none; margin-top: var(--space-md);">
+        <p id="resultText" style="font-weight:600;"></p>
+      </div>
       
       <div class="action-buttons">
         <button type="submit" class="btn btn-lg btn-primary" id="submitBtn" disabled>Analyze Pollution</button>
       </div>
       
       <div class="navigation-links">
-        <a href="{{ url_for('select') }}" class="back-link">
+        <a href="/templates/select.html" class="back-link">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
           </svg>
           Back to Selection
         </a>
-        <a href="{{ url_for('landing') }}" class="back-link">
+        <a href="/templates/landing.html" class="back-link">
           Home
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="transform: rotate(180deg); margin-left: 5px;">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
@@ -242,7 +246,7 @@
     </form>
   </div>
 
-  <script src="{{ url_for('static', filename='eco-animations.js') }}"></script>
+  <script src="/static/eco-animations.js"></script>
   <script>
     // Get pollution type from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
@@ -289,18 +293,50 @@
       document.getElementById('submitBtn').disabled = true;
     }
     
-    // Handle form submission
-    document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    // Handle form submission -> call Vercel API and show result
+    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
       const fileInput = document.getElementById('fileInput');
-      
+      const loading = document.getElementById('loadingIndicator');
+      const resultBox = document.getElementById('resultOutput');
+      const resultText = document.getElementById('resultText');
+
       if (!fileInput.files.length) {
-        e.preventDefault();
         alert('Please select an image to analyze.');
         return;
       }
-      
-      document.getElementById('loadingIndicator').style.display = 'block';
+
+      loading.style.display = 'block';
       document.getElementById('submitBtn').disabled = true;
+      resultBox.style.display = 'none';
+      resultText.textContent = '';
+
+      try {
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        const type = (pollutionType || 'water').toLowerCase();
+        const resp = await fetch(`/api/predict?type=${encodeURIComponent(type)}`, {
+          method: 'POST',
+          body: formData
+        });
+        const data = await resp.json();
+        loading.style.display = 'none';
+        if (data.error) {
+          resultText.textContent = `Error: ${data.error}`;
+        } else {
+          const confidence = data.confidence ? (data.confidence * 100).toFixed(2) : '—';
+          const label = data.prediction || data.class || 'Unknown';
+          resultText.textContent = `Prediction: ${label} (Confidence: ${confidence}%)`;
+        }
+        resultBox.style.display = 'block';
+      } catch (err) {
+        console.error(err);
+        loading.style.display = 'none';
+        resultText.textContent = 'Error: Could not get prediction.';
+        resultBox.style.display = 'block';
+      } finally {
+        document.getElementById('submitBtn').disabled = false;
+      }
     });
     
     // Drag and drop functionality

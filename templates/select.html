@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoSense - Choose Pollution Type</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='eco-styles.css') }}">
+  <link rel="stylesheet" href="/static/eco-styles.css">
   <style>
     body {
       background: linear-gradient(135deg, var(--color-light-green), var(--color-light-blue));
@@ -136,7 +136,7 @@
     <p class="selection-description">Choose the type of pollution you want to analyze. Our advanced AI models will help identify and classify pollution levels.</p>
     
     <div class="option-cards">
-      <div class="option-card air-option scale-in" onclick="location.href='{{ url_for('predict') }}?type=air'">
+      <div class="option-card air-option scale-in" onclick="location.href='/templates/predict.html?type=air'">
         <div class="option-header">
           <div class="option-icon">🌬️</div>
         </div>
@@ -147,7 +147,7 @@
         </div>
       </div>
       
-      <div class="option-card water-option scale-in" onclick="location.href='{{ url_for('predict') }}?type=water'">
+      <div class="option-card water-option scale-in" onclick="location.href='/templates/predict.html?type=water'">
         <div class="option-header">
           <div class="option-icon">💧</div>
         </div>
@@ -159,7 +159,7 @@
       </div>
     </div>
     
-    <a href="{{ url_for('landing') }}" class="back-link">
+    <a href="/templates/landing.html" class="back-link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
         <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
       </svg>
@@ -167,6 +167,6 @@
     </a>
   </div>
   
-  <script src="{{ url_for('static', filename='eco-animations.js') }}"></script>
+  <script src="/static/eco-animations.js"></script>
 </body>
 </html>
